@@ -15,8 +15,8 @@ const Header = () => {
                             <li><NavLink to='/shop'>Shop</NavLink></li>
                             <li><NavLink to='/order'>Order</NavLink></li>
                             <li><NavLink to='/blog'>Blog</NavLink></li>
-                            <li><NavLink to='/blog'>Login</NavLink></li>
-                            <li><NavLink to='/blog'>Register</NavLink></li>
+                            <li><NavLink to='/login'>Login</NavLink></li>
+                            <li><NavLink to='/register'>Register</NavLink></li>
                         </ul>
                     </div>
                     <NavLink to='/' className="btn btn-ghost normal-case text-2xl text-gray-600">Good Food</NavLink>
@@ -28,8 +28,8 @@ const Header = () => {
                             <li><NavLink to='/shop'>Shop</NavLink></li>
                             <li><NavLink to='/order'>Order</NavLink></li>
                             <li><NavLink to='/blog'>Blog</NavLink></li>
-                            <li><NavLink to='/blog'>Login</NavLink></li>
-                            <li><NavLink to='/blog'>Register</NavLink></li>
+                            <li><NavLink to='/login'>Login</NavLink></li>
+                            <li><NavLink to='/register'>Register</NavLink></li>
                         </ul>
 
                     </div>
