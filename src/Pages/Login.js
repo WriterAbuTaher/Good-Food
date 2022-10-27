@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from '../Authentication/firebase.config';
+import { Link } from 'react-router-dom';
 
 const auth = getAuth(app)
 
@@ -34,7 +35,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user)
-                // console.log(user);
+                console.log(user);
             })
             .catch(error => {
                 console.error(error);
@@ -55,41 +56,39 @@ const Login = () => {
     // password handle and check validation
     const handlePassword = (e) => {
         const test = /^\s*$/.test(e.target.value)
-        const test1 = /(?=.*[A-Z])/.test(e.target.value)
-        const test2 = /(?=.*[a-z])/.test(e.target.value)
+        // const test1 = /(?=.*[A-Z])/.test(e.target.value)
+        // const test2 = /(?=.*[a-z])/.test(e.target.value)
         const test3 = /(?=.{8,})/.test(e.target.value)
-        const test4 = /(?=.*[#$@!%&*?])/.test(e.target.value)
+        // const test4 = /(?=.*[#$@!%&*?+])/.test(e.target.value)
 
         if (test) {
             setError("Please Give A Valid Password")
             return;
         }
-        if (!test1) {
-            setError("Password Minimum 1 Uppercase")
-            return;
-        }
-        if (!test2) {
-            setError("Password Minimum 1 Lowercase")
-            return;
-        }
+        // if (!test1) {
+        //     setError("Password Minimum 1 Uppercase")
+        //     return;
+        // }
+        // if (!test2) {
+        //     setError("Password Minimum 1 Lowercase")
+        //     return;
+        // }
         if (!test3) {
             setError("Password Minimum 8 Characters")
             return;
         }
-        if (!test4) {
-            setError("Password 1 Special Character")
-            return;
-        }
+        // if (!test4) {
+        //     setError("Password 1 Special Character")
+        //     return;
+        // }
 
         setPassword(e.target.value);
         setError("")
     }
 
-    const handleRegister = (e) => {
+    // handle user register
+    const handleLogin = (e) => {
         e.preventDefault();
-        // const email = e.target.email.value;
-        // const password = e.target.password.value;
-        console.log(email, password);
 
         createUserWithEmailAndPassword(auth, email, password)
 
@@ -103,15 +102,8 @@ const Login = () => {
             })
     }
 
-    const updateName = () => {
-        updateProfile(auth.currentUser, {
-            displayName: ""
-        })
-    }
-
     return (
-        <>
-
+        <div className='flex justify-center my-12'>
             <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
                 <div className="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
                     Login To Your Account
@@ -131,18 +123,7 @@ const Login = () => {
                 </div>
                 <div className="mt-8">
                     <p className='text-gray-600 dark:text-gray-200 mb-2'>{error}</p>
-                    <form onSubmit={handleRegister} action="#" autoComplete="off">
-                        <div className="flex flex-col mb-2">
-                            <div className="relative flex">
-                                <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                                    <svg width="17" height="20" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                    </svg>
-                                </span>
-
-                                <input type="text" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="User Name" required />
-                            </div>
-                        </div>
+                    <form onSubmit={handleLogin} action="#" autoComplete="off">
                         <div className="flex flex-col mb-2">
                             <div className="flex relative ">
                                 <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -185,11 +166,10 @@ const Login = () => {
                 <div className="flex items-center justify-center mt-6">
                     <span className="text-sm text-gray-600 dark:text-gray-200">Don't have an account? </span>
 
-                    <a href="#" className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline">Register</a>
+                    <Link to={'/register'} className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline">Register</Link>
                 </div>
             </div>
-
-        </>
+        </div>
     );
 };
 
