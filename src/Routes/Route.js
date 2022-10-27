@@ -1,5 +1,6 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import Details from '../Components/Details';
 import Main from '../Layout/Main';
 import Blog from '../Pages/Blog';
 import Home from '../Pages/Home';
@@ -51,6 +52,11 @@ const router = createBrowserRouter([
                 path: "/fish",
                 element: <Home></Home>,
                 loader: () => fetch("https://good-food-server.vercel.app/fish")
+            },
+            {
+                path: "/food/:id",
+                element: <Details></Details>,
+                loader: ({ params }) => fetch(`https://good-food-server.vercel.app/food/${params.id}`)
             },
             {
                 path: "/order",

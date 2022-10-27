@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCbxYbsnGJrQKBOOK0W20JX0ldWi9Sd5zI",
-    authDomain: "good-food-pro.firebaseapp.com",
-    projectId: "good-food-pro",
-    storageBucket: "good-food-pro.appspot.com",
-    messagingSenderId: "189694254889",
-    appId: "1:189694254889:web:4e8e7dd0260c7fcd7be138"
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_appId
 };
 
 // Initialize Firebase
