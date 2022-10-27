@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Details from '../Components/Details';
 import Main from '../Layout/Main';
 import Blog from '../Pages/Blog';
+import Error from '../Pages/Error';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Order from '../Pages/Order';
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register></Register>,
+            },
+            {
+                path: "*",
+                element: <Error></Error>,
             },
         ]
     }
