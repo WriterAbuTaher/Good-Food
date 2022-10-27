@@ -3,12 +3,12 @@ import React from 'react';
 const Card = ({ data }) => {
     // console.log(data);
     return (
-        <>
+        <div className='flex flex-wrap gap-4'>
             {
                 data.map(data => {
                     const { label, image, price } = data
                     return (
-                        <div key={data.id} className="flex flex-col items-center justify-center w-full max-w-sm mx-auto">
+                        <div key={data.id} className="flex flex-col items-center justify-center w-full max-w-sm mx-auto my-6">
                             <div className="w-full h-64 bg-gray-300 bg-center bg-cover rounded-lg shadow-md" style={{ backgroundImage: `url(${image})` }}></div>
 
                             <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
@@ -23,7 +23,7 @@ const Card = ({ data }) => {
                     )
                 })
             }
-        </>
+        </div>
     );
 };
 
