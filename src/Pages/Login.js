@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import app from '../Authentication/firebase.config';
 import { Link } from 'react-router-dom';
 
@@ -89,8 +89,9 @@ const Login = () => {
     // handle user register
     const handleLogin = (e) => {
         e.preventDefault();
+        const form = e.target
 
-        createUserWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
 
             .then(result => {
                 const user = result.user
@@ -100,6 +101,7 @@ const Login = () => {
                 console.error(error);
                 setError(error.message.slice(16))
             })
+        form.reset()
     }
 
     return (

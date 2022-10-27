@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import app from '../Authentication/firebase.config';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../Contexts/UserContext';
 
 const auth = getAuth(app)
 
 const Register = () => {
-    const [user, setUser] = useState({})
+    const { googleSignIn, registerEmailAndPassword } = useContext(AuthContext)
+    // const [user, setUser] = useState({})
     const [error, setError] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+    // const [name, setName] = useState("");
 
     // github atuthentication
     const githubProvider = new GithubAuthProvider();
@@ -19,7 +22,7 @@ const Register = () => {
         signInWithPopup(auth, githubProvider)
             .then(result => {
                 const user = result.user;
-                setUser(user)
+                // setUser(user)
                 console.log(user);
             })
             .catch(error => {
@@ -28,13 +31,12 @@ const Register = () => {
     }
 
     // google authentication
-    const googleProvider = new GoogleAuthProvider();
     const handleGoogleSignIn = () => {
-        signInWithPopup(auth, googleProvider)
+        googleSignIn()
 
             .then(result => {
                 const user = result.user;
-                setUser(user)
+                // setUser(user)
                 console.log(user);
             })
             .catch(error => {
@@ -49,7 +51,7 @@ const Register = () => {
             setError("Please Give A Valid Email")
             return;
         }
-        setEmail(e.target.value);
+        // setEmail(e.target.value);
         setError("")
     }
 
@@ -82,7 +84,7 @@ const Register = () => {
         //     return;
         // }
 
-        setPassword(e.target.value);
+        // setPassword(e.target.value);
         setError("")
     }
 
@@ -90,7 +92,7 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        createUserWithEmailAndPassword(auth, email, password)
+        registerEmailAndPassword()
 
             .then(result => {
                 const user = result.user
@@ -176,7 +178,7 @@ const Register = () => {
                         </div>
                         <div className="flex w-full">
                             <button type="submit" className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                Login
+                                Register
                             </button>
                         </div>
                     </form>

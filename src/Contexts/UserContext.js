@@ -1,16 +1,5 @@
 import { FirebaseError } from "firebase/app";
-import {
-    createUserWithEmailAndPassword,
-    getAuth,
-    GithubAuthProvider,
-    GoogleAuthProvider,
-    onAuthStateChanged,
-    sendEmailVerification,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-    updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../Authentication/firebase.config";
 
@@ -21,12 +10,12 @@ const UserContext = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
-    // ? create new user
+    // create new user
     const registerEmailAndPassword = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
-    // ? update user profile
+    // update user profile
     const updateUserProfile = (name, photo) => {
         setLoading(true);
         return updateProfile(auth.currentUser, {
@@ -34,27 +23,27 @@ const UserContext = ({ children }) => {
             photoURL: photo,
         });
     };
-    // ? email verification
+    // email verification
     const emailVerification = () => {
         setLoading(true);
         return sendEmailVerification(auth.currentUser);
     };
-    // ? google sign in
+    // google sign in
     const googleSignIn = () => {
         setLoading(true);
         return signInWithPopup(auth, googleProvider);
     };
-    // ? github sign in
+    // github sign in
     const githubSignIn = () => {
         setLoading(true);
         return signInWithPopup(auth, githubProvider);
     };
-    // ? signInWithEmailAndPassword
+    // signInWithEmailAndPassword
     const loginWithEmailAndPassword = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     };
-    // ? sign out
+    // sign out
     const logout = () => {
         setLoading(true);
         return signOut(auth)
