@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Details from '../Components/Details';
+import Profile from '../Components/Profile';
 import Main from '../Layout/Main';
 import Blog from '../Pages/Blog';
 import Error from '../Pages/Error';
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register></Register>,
+            },
+            {
+                path: "/profile",
+                element: <Profile></Profile>,
             },
             {
                 path: "*",

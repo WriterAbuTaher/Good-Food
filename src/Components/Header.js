@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from '../Contexts/UserContext';
 
 const Header = () => {
@@ -38,15 +38,20 @@ const Header = () => {
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-12 rounded-full">
-                                    <img src="https://placeimg.com/80/80/people" />
+                                    {
+                                        user.photoURL ?
+                                            <img src={user.photoURL} />
+                                            :
+                                            <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" />
+                                    }
                                 </div>
                             </label>
                             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow rounded-box w-52 text-gray-600 bg-gray-200">
                                 <li>
-                                    <a className="justify-between">
+                                    <Link to={'/profile'} className="justify-between">
                                         Profile
                                         <span className="badge">New</span>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li><a>Logout</a></li>
                             </ul>
