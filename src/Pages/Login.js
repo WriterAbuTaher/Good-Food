@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
+import app from '../Authentication/firebase.config';
+
+const auth = getAuth(app)
 
 const Login = () => {
     const [user, setUser] = useState({})
@@ -7,10 +11,25 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
+    // github atuthentication
+    const githubProvider = new GithubAuthProvider();
+
+    const handleGithubSignIn = () => {
+        signInWithPopup(auth, githubProvider)
+            .then(result => {
+                const user = result.user;
+                setUser(user)
+                console.log(user);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
     // google authentication
-    const provider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
     const handleGoogleSignIn = () => {
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, googleProvider)
 
             .then(result => {
                 const user = result.user;
@@ -26,7 +45,7 @@ const Login = () => {
     const handleEmail = (e) => {
         const test = /^\S+@\S+\.\S+$/.test(e.target.value)
         if (!test) {
-            setError("Please Give a Valid Email")
+            setError("Please Give A Valid Email")
             return;
         }
         setEmail(e.target.value);
@@ -98,12 +117,9 @@ const Login = () => {
                     Login To Your Account
                 </div>
                 <div className="flex gap-4 item-center">
-                    <button type="button" className="py-2 px-4 flex justify-center items-center  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                        <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1343 12v264h-157q-86 0-116 36t-30 108v189h293l-39 296h-254v759h-306v-759h-255v-296h255v-218q0-186 104-288.5t277-102.5q147 0 228 12z">
-                            </path>
-                        </svg>
-                        Facebook
+                    <button onClick={handleGithubSignIn} type="button" className="py-2 px-4 flex justify-center items-center  bg-gray-500 hover:bg-gray-600 focus:ring-gray-400 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                        <img className='w-6 mr-4' src="https://cdn-icons-png.flaticon.com/512/733/733609.png" alt="" />
+                        Github
                     </button>
                     <button onClick={handleGoogleSignIn} type="button" className="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                         <svg width="20" height="20" fill="currentColor" className="mr-2" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
