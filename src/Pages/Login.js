@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import app from '../Authentication/firebase.config';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../Contexts/UserContext';
 
-const auth = getAuth(app)
 
 const Login = () => {
-    const [user, setUser] = useState({})
+    const { loading, loginWithEmailAndPassword, githubSignIn, googleSignIn } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    // const [user, setUser] = useState({})
     const [error, setError] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+    // const [name, setName] = useState("");
+
 
     // github atuthentication
-    const githubProvider = new GithubAuthProvider();
+    // const githubProvider = new GithubAuthProvider();
 
     const handleGithubSignIn = () => {
-        signInWithPopup(auth, githubProvider)
+        githubSignIn()
             .then(result => {
                 const user = result.user;
-                setUser(user)
-                console.log(user);
+                // console.log("Login", from);
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.error(error);
@@ -28,14 +34,12 @@ const Login = () => {
     }
 
     // google authentication
-    const googleProvider = new GoogleAuthProvider();
+    // const googleProvider = new GoogleAuthProvider();
     const handleGoogleSignIn = () => {
-        signInWithPopup(auth, googleProvider)
-
+        googleSignIn()
             .then(result => {
                 const user = result.user;
-                setUser(user)
-                console.log(user);
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.error(error);
@@ -91,11 +95,11 @@ const Login = () => {
         e.preventDefault();
         const form = e.target
 
-        signInWithEmailAndPassword(auth, email, password)
-
+        loginWithEmailAndPassword(email, password)
             .then(result => {
                 const user = result.user
-                console.log(user);
+                // console.log(user);
+                navigate(from, { replace: true })
             })
             .catch(error => {
                 console.error(error);

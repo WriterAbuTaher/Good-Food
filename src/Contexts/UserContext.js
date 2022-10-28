@@ -67,9 +67,11 @@ const UserContext = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
+    console.log(user);
+
     return (
         <AuthContext.Provider
-            value={{ user, registerEmailAndPassword, updateUserProfile, emailVerification, googleSignIn, githubSignIn, loginWithEmailAndPassword, logOut, loading, }}>
+            value={{ user, registerEmailAndPassword, updateUserProfile, emailVerification, googleSignIn, githubSignIn, loginWithEmailAndPassword, logOut, loading }}>
             {children}
         </AuthContext.Provider>
     );
