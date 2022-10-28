@@ -4,7 +4,12 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from '../Contexts/UserContext';
 
 const Header = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleLogOut = () => {
+        logOut()
+    }
+
     return (
         <>
             <div className="navbar container mx-auto">
@@ -39,7 +44,7 @@ const Header = () => {
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-12 rounded-full">
                                     {
-                                        user.photoURL ?
+                                        user?.photoURL ?
                                             <img src={user.photoURL} />
                                             :
                                             <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" />
@@ -53,7 +58,7 @@ const Header = () => {
                                         <span className="badge">New</span>
                                     </Link>
                                 </li>
-                                <li><a>Logout</a></li>
+                                <li><button onClick={handleLogOut}>Logout</button></li>
                             </ul>
                         </div>
                     </div>

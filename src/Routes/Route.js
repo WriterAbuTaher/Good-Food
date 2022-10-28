@@ -9,6 +9,7 @@ import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Order from '../Pages/Order';
 import Register from '../Pages/Register';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
     {
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/order",
-                element: <Order></Order>,
+                element: <PrivateRoute><Order></Order></PrivateRoute>,
             },
             {
                 path: "/blog",
@@ -83,7 +84,7 @@ const router = createBrowserRouter([
             {
                 path: "*",
                 element: <Error></Error>,
-            },
+            }
         ]
     }
 ]);

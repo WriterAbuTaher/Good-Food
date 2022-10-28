@@ -31,7 +31,7 @@ const Checkout = () => {
                     <p className="text-sm dark:text-gray-400">Not including taxes and shipping costs</p>
                 </div>
                 <div className="flex justify-end space-x-4">
-                    <Link to={'/'} type="button" className="btn btn-outline px-6 py-2 border rounded-md dark:border-violet-400">Back
+                    <Link to={'/home'} type="button" className="btn btn-outline px-6 py-2 border rounded-md dark:border-violet-400">Back
                         <span className="sr-only sm:not-sr-only">to shop</span>
                     </Link>
                     <Link type="button" className="btn btn-outline px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400">

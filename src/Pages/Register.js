@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../Contexts/UserContext';
 
-const auth = getAuth(app)
+// const auth = getAuth(app)
 
 const Register = () => {
-    const { googleSignIn, registerEmailAndPassword } = useContext(AuthContext)
+    const { googleSignIn, githubSignIn, registerEmailAndPassword } = useContext(AuthContext)
     // const [user, setUser] = useState({})
     const [error, setError] = useState("")
     const [email, setEmail] = useState("");
@@ -16,10 +16,10 @@ const Register = () => {
     // const [name, setName] = useState("");
 
     // github atuthentication
-    const githubProvider = new GithubAuthProvider();
+    // const githubProvider = new GithubAuthProvider();
 
     const handleGithubSignIn = () => {
-        signInWithPopup(auth, githubProvider)
+        githubSignIn()
             .then(result => {
                 const user = result.user;
                 // setUser(user)
@@ -37,7 +37,7 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 // setUser(user)
-                console.log(user);
+                // console.log(user);
             })
             .catch(error => {
                 console.error(error);
@@ -51,7 +51,7 @@ const Register = () => {
             setError("Please Give A Valid Email")
             return;
         }
-        // setEmail(e.target.value);
+        setEmail(e.target.value);
         setError("")
     }
 
@@ -84,15 +84,16 @@ const Register = () => {
         //     return;
         // }
 
-        // setPassword(e.target.value);
+        setPassword(e.target.value);
         setError("")
     }
 
     // handle user register
     const handleRegister = (e) => {
         e.preventDefault();
+        const form = e.target;
 
-        registerEmailAndPassword()
+        registerEmailAndPassword(email, password)
 
             .then(result => {
                 const user = result.user
@@ -102,13 +103,14 @@ const Register = () => {
                 console.error(error);
                 setError(error.message.slice(16))
             })
+        form.reset()
     }
 
     // update user name
     const updateName = () => {
-        updateProfile(auth.currentUser, {
-            displayName: ""
-        })
+        // updateProfile(auth.currentUser, {
+        //     displayName: ""
+        // })
     }
 
     return (
