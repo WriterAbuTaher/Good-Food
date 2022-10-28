@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../Contexts/UserContext';
+import Swal from 'sweetalert2';
 
 const Register = () => {
-    const { googleSignIn, githubSignIn, registerEmailAndPassword, updateUserProfile } = useContext(AuthContext)
-    const [error, setError] = useState("")
+    const { googleSignIn, githubSignIn, registerEmailAndPassword, updateUserProfile } = useContext(AuthContext);
+    const [error, setError] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -90,6 +91,17 @@ const Register = () => {
             .catch(error => console.error(error))
     }
 
+    const showToast = () => {
+        {
+            !error &&
+                Swal.fire(
+                    'Thanks!',
+                    'Enjoy Your Delecious Food!',
+                    'success'
+                )
+        }
+    }
+
     return (
         <div className='flex justify-center my-12'>
             <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
@@ -147,16 +159,12 @@ const Register = () => {
                         </div>
                         <div className="flex items-center justify-between my-4">
                             <div className="flex items-center">
-                                <input id="remember-me" name="remember-me" type="checkbox" className="w-4 h-4 text-blue-600 border-gray-200 rounded focus:ring-blue-500" required />
+                                <input id="remember-me" name="remember-me" type="checkbox" className="w-4 h-4 text-blue-600 border-gray-200 rounded focus:ring-blue-500" />
                                 <label htmlFor="remember-me" className="block ml-2 text-sm text-neutral-600 dark:text-gray-200"> accept terms & conditions </label>
-                            </div>
-
-                            <div className="text-sm">
-                                <a href="#" className="text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline"> Forgot your password? </a>
                             </div>
                         </div>
                         <div className="flex w-full">
-                            <button type="submit" className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                            <button onClick={() => showToast()} type="submit" className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                 Register
                             </button>
                         </div>

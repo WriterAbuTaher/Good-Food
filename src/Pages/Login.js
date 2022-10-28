@@ -132,10 +132,6 @@ const Login = () => {
                                 <input id="remember-me" name="remember-me" type="checkbox" className="w-4 h-4 text-blue-600 border-gray-200 rounded focus:ring-blue-500" required />
                                 <label htmlFor="remember-me" className="block ml-2 text-sm text-neutral-600 dark:text-gray-200"> accept terms & conditions </label>
                             </div>
-
-                            <div className="text-sm">
-                                <a href="#" className="text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline"> Forgot your password? </a>
-                            </div>
                         </div>
                         <div className="flex w-full">
                             <button type="submit" className="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
