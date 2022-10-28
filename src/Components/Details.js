@@ -2,12 +2,15 @@ import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useRef } from "react";
 import { useReactToPrint } from 'react-to-print';
+import { useContext } from 'react';
+import { FoodContext } from '../Contexts/CartContext';
 
 const Details = () => {
     const data = useLoaderData()
-    // console.log(data);
-    const { image, label, healthLabels, ingredientLines, price
+    const { image, label, healthLabels, ingredientLines, price, category
     } = data
+
+    const { addToCart } = useContext(FoodContext)
 
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
@@ -25,7 +28,7 @@ const Details = () => {
 
                     <div className="flex items-center justify-between px-3 py-2 bg-gray-200 dark:bg-gray-700">
                         <span className="font-bold text-gray-800 dark:text-gray-200">${price}</span>
-                        <Link to={'/order'} className="btn btn-outline px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-800 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-gray-600 focus:outline-none">Add To Cart</Link>
+                        <Link onClick={() => addToCart(label, price, image, category)} to={'/order'} className="btn btn-outline px-2 py-1 text-xs font-semibold text-white uppercase transition-colors duration-300 transform bg-gray-800 rounded hover:bg-gray-700 dark:hover:bg-gray-600 focus:bg-gray-700 dark:focus:bg-gray-600 focus:outline-none">Add To Cart</Link>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
-import { FirebaseError } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import app from "../Authentication/firebase.config";
 
@@ -19,18 +18,9 @@ const UserContext = ({ children }) => {
     };
 
     // update user profile
-    const updateUserProfile = (name, photo) => {
+    const updateUserProfile = (profile) => {
         setLoading(true);
-        return updateProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: photo,
-        });
-    };
-
-    // email verification
-    const emailVerification = () => {
-        setLoading(true);
-        return sendEmailVerification(auth.currentUser);
+        return updateProfile(auth.currentUser, profile);
     };
 
     // google sign in
@@ -71,7 +61,7 @@ const UserContext = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ user, registerEmailAndPassword, updateUserProfile, emailVerification, googleSignIn, githubSignIn, loginWithEmailAndPassword, logOut, loading }}>
+            value={{ user, registerEmailAndPassword, updateUserProfile, googleSignIn, githubSignIn, loginWithEmailAndPassword, logOut, loading }}>
             {children}
         </AuthContext.Provider>
     );

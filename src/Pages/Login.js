@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import app from '../Authentication/firebase.config';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../Contexts/UserContext';
-
 
 const Login = () => {
     const { loading, loginWithEmailAndPassword, githubSignIn, googleSignIn } = useContext(AuthContext)
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
-    // const [user, setUser] = useState({})
     const [error, setError] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [name, setName] = useState("");
-
-
-    // github atuthentication
-    // const githubProvider = new GithubAuthProvider();
 
     const handleGithubSignIn = () => {
         githubSignIn()
             .then(result => {
                 const user = result.user;
-                // console.log("Login", from);
+                console.log(user);
                 navigate(from, { replace: true })
             })
             .catch(error => {
@@ -33,12 +24,11 @@ const Login = () => {
             })
     }
 
-    // google authentication
-    // const googleProvider = new GoogleAuthProvider();
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user;
+                console.log(user)
                 navigate(from, { replace: true })
             })
             .catch(error => {
@@ -60,31 +50,16 @@ const Login = () => {
     // password handle and check validation
     const handlePassword = (e) => {
         const test = /^\s*$/.test(e.target.value)
-        // const test1 = /(?=.*[A-Z])/.test(e.target.value)
-        // const test2 = /(?=.*[a-z])/.test(e.target.value)
         const test3 = /(?=.{8,})/.test(e.target.value)
-        // const test4 = /(?=.*[#$@!%&*?+])/.test(e.target.value)
 
         if (test) {
             setError("Please Give A Valid Password")
             return;
         }
-        // if (!test1) {
-        //     setError("Password Minimum 1 Uppercase")
-        //     return;
-        // }
-        // if (!test2) {
-        //     setError("Password Minimum 1 Lowercase")
-        //     return;
-        // }
         if (!test3) {
             setError("Password Minimum 8 Characters")
             return;
         }
-        // if (!test4) {
-        //     setError("Password 1 Special Character")
-        //     return;
-        // }
 
         setPassword(e.target.value);
         setError("")
@@ -98,7 +73,7 @@ const Login = () => {
         loginWithEmailAndPassword(email, password)
             .then(result => {
                 const user = result.user
-                // console.log(user);
+                console.log(user);
                 navigate(from, { replace: true })
             })
             .catch(error => {

@@ -1,28 +1,18 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
-import app from '../Authentication/firebase.config';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../Contexts/UserContext';
 
-// const auth = getAuth(app)
-
 const Register = () => {
-    const { googleSignIn, githubSignIn, registerEmailAndPassword } = useContext(AuthContext)
-    // const [user, setUser] = useState({})
+    const { googleSignIn, githubSignIn, registerEmailAndPassword, updateUserProfile } = useContext(AuthContext)
     const [error, setError] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [name, setName] = useState("");
-
-    // github atuthentication
-    // const githubProvider = new GithubAuthProvider();
 
     const handleGithubSignIn = () => {
         githubSignIn()
             .then(result => {
                 const user = result.user;
-                // setUser(user)
                 console.log(user);
             })
             .catch(error => {
@@ -33,11 +23,9 @@ const Register = () => {
     // google authentication
     const handleGoogleSignIn = () => {
         googleSignIn()
-
             .then(result => {
                 const user = result.user;
-                // setUser(user)
-                // console.log(user);
+                console.log(user);
             })
             .catch(error => {
                 console.error(error);
@@ -55,34 +43,19 @@ const Register = () => {
         setError("")
     }
 
-    // password handle and check validation
+    // handle password validation
     const handlePassword = (e) => {
         const test = /^\s*$/.test(e.target.value)
-        // const test1 = /(?=.*[A-Z])/.test(e.target.value)
-        // const test2 = /(?=.*[a-z])/.test(e.target.value)
         const test3 = /(?=.{8,})/.test(e.target.value)
-        // const test4 = /(?=.*[#$@!%&*?+])/.test(e.target.value)
 
         if (test) {
             setError("Please Give A Valid Password")
             return;
         }
-        // if (!test1) {
-        //     setError("Password Minimum 1 Uppercase")
-        //     return;
-        // }
-        // if (!test2) {
-        //     setError("Password Minimum 1 Lowercase")
-        //     return;
-        // }
         if (!test3) {
             setError("Password Minimum 8 Characters")
             return;
         }
-        // if (!test4) {
-        //     setError("Password 1 Special Character")
-        //     return;
-        // }
 
         setPassword(e.target.value);
         setError("")
@@ -92,12 +65,13 @@ const Register = () => {
     const handleRegister = (e) => {
         e.preventDefault();
         const form = e.target;
+        const name = form.name.value;
 
         registerEmailAndPassword(email, password)
-
             .then(result => {
                 const user = result.user
                 console.log(user);
+                updateName(name)
             })
             .catch(error => {
                 console.error(error);
@@ -107,10 +81,13 @@ const Register = () => {
     }
 
     // update user name
-    const updateName = () => {
-        // updateProfile(auth.currentUser, {
-        //     displayName: ""
-        // })
+    const updateName = (name) => {
+        const profile = {
+            displayName: name
+        }
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error))
     }
 
     return (
@@ -134,7 +111,7 @@ const Register = () => {
                 </div>
                 <div className="mt-8">
                     <p className='text-gray-600 dark:text-gray-200 mb-2'>{error}</p>
-                    <form onSubmit={handleRegister} action="#" autoComplete="off">
+                    <form onSubmit={handleRegister}>
                         <div className="flex flex-col mb-2">
                             <div className="relative flex">
                                 <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -143,7 +120,7 @@ const Register = () => {
                                     </svg>
                                 </span>
 
-                                <input type="text" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="User Name" required />
+                                <input name='name' type="text" className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="User Name" required />
                             </div>
                         </div>
                         <div className="flex flex-col mb-2">
