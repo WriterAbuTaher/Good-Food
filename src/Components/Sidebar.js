@@ -24,9 +24,6 @@ const Sidebar = () => {
                         user ?
                             <div>
                                 <h2 className="text-lg font-semibold">{user.displayName}</h2>
-                                <span className="flex items-center space-x-1">
-                                    <Link to={'/profile'} className="text-sm hover:underline dark:text-gray-400">{user.email}</Link>
-                                </span>
                             </div>
                             :
                             <Link to={'/login'} className="hover:underline dark:text-gray-400">LogIn</Link>

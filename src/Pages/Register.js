@@ -96,7 +96,7 @@ const Register = () => {
             !error &&
                 Swal.fire(
                     'Thanks!',
-                    'Enjoy Your Delecious Food!',
+                    'You Are Register Done!',
                     'success'
                 )
         }
