@@ -63,7 +63,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/order",
-                element: <PrivateRoute><Order></Order></PrivateRoute>,
+                element: <><Order></Order></>,
             },
             {
                 path: "/blog",

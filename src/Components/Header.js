@@ -43,7 +43,7 @@ const Header = () => {
                             {
                                 user ?
 
-                                    <li><button onClick={handleLogOut}>LogOut</button></li>
+                                    <button onClick={handleLogOut}>LogOut</button>
                                     :
                                     <>
                                         <li><NavLink to='/login'>Login</NavLink></li>
@@ -78,7 +78,7 @@ const Header = () => {
                                 </li>
                                 {
                                     user ?
-                                        <li><button onClick={handleLogOut}>Logout</button></li>
+                                        <button onClick={handleLogOut}>Logout</button>
                                         :
                                         <li><Link to={'/login'}>Login</Link></li>
                                 }

@@ -6,10 +6,10 @@ export const FoodContext = createContext()
 
 const CartContext = ({ children }) => {
 
-    const [label, setLabel] = useState([])
-    const [image, setImage] = useState([])
-    const [price, setPrice] = useState([])
-    const [category, setCategory] = useState([])
+    const [label, setLabel] = useState([]);
+    const [image, setImage] = useState([]);
+    const [price, setPrice] = useState([]);
+    const [category, setCategory] = useState([]);
 
     const addToCart = (label, price, image, category) => {
         setLabel(label)

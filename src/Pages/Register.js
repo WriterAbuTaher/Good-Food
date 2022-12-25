@@ -122,7 +122,7 @@ const Register = () => {
                     </button>
                 </div>
                 <div className="mt-8">
-                    <p className='text-gray-600 dark:text-gray-200 mb-2'>{error}</p>
+                    <p className='text-error dark:text-gray-200 mb-2'>{error}</p>
                     <form onSubmit={handleRegister}>
                         <div className="flex flex-col mb-2">
                             <div className="relative flex">

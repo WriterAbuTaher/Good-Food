@@ -103,7 +103,7 @@ const Login = () => {
                     </button>
                 </div>
                 <div className="mt-8">
-                    <p className='text-gray-600 dark:text-gray-200 mb-2'>{error}</p>
+                    <p className='text-error dark:text-gray-200 mb-2'>{error}</p>
                     <form onSubmit={handleLogin} action="#" autoComplete="off">
                         <div className="flex flex-col mb-2">
                             <div className="flex relative ">
